@@ -1,5 +1,7 @@
 package com.moon.sell.dataobject;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
  * @version 1.0
  */
 @Entity
+@Data
 public class ProductCategory {
     /**
      * 类目id.
@@ -28,36 +31,11 @@ public class ProductCategory {
      */
     private Integer categoryType;
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public ProductCategory() {
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
+    public ProductCategory(String categoryName, Integer categoryType) {
         this.categoryName = categoryName;
-    }
-
-    public Integer getCategoryType() {
-        return categoryType;
-    }
-
-    public void setCategoryType(Integer categoryType) {
         this.categoryType = categoryType;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductCategory{" +
-                "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
-                ", categoryType=" + categoryType +
-                '}';
     }
 }
