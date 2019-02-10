@@ -10,6 +10,7 @@ import com.moon.sell.service.ProductService;
 import com.moon.sell.utils.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,7 @@ public class BuyerProductController {
     }
 
     @GetMapping("/list")
+    @Cacheable(cacheNames = "product",key = "123")
     public ResultVO list() {
 //        1.查询所有的上架商品
         List<ProductInfo> productInfos = productService.findUpAll();
@@ -52,6 +54,7 @@ public class BuyerProductController {
                 .map(ProductInfo::getCategoryType)
                 .collect(Collectors.toList());
 
+        //查找所以商品类别
         List<ProductCategory> productCategoryList = categoryService
                 .findByCategoryTypeIn(categoryTypeList);
 
@@ -59,6 +62,9 @@ public class BuyerProductController {
         List<ProductVO> productVOList = new ArrayList<>();
         for (ProductCategory productCategory : productCategoryList) {
             ProductVO productVO = new ProductVO();
+
+            BeanUtils.copyProperties(productCategory,productVO);
+
             productVO.setCategoryType(productCategory.getCategoryType());
             productVO.setCategoryName(productCategory.getCategoryName());
 

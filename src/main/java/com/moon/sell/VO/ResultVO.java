@@ -1,6 +1,9 @@
 package com.moon.sell.VO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * http返回的最外层对象
@@ -8,8 +11,11 @@ import lombok.Data;
  * @version 1.0
  */
 @Data
-public class ResultVO<T> {
+public class ResultVO<T> implements Serializable {
 
+
+    private static final long serialVersionUID = 1526553893680343784L;
+    
     /** 错误码. */
     private Integer code;
 

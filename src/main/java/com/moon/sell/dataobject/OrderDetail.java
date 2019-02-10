@@ -38,6 +38,4 @@ public class OrderDetail {
 //    商品小图.
     private String productIcon;
 
-
-
 }

@@ -1,6 +1,5 @@
 package com.moon.sell.repository;
 
-
 import com.moon.sell.dataobject.ProductCategory;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,7 +26,6 @@ public class ProductCategoryRepositoryTest {
     }
 
     @Test
-
     public void saveTest(){
         ProductCategory productCategory=new ProductCategory("女生最爱",3);
         repository.save(productCategory);
@@ -35,7 +33,7 @@ public class ProductCategoryRepositoryTest {
 
     @Test
     public void findByCategoryTypeInTest(){
-        List<Integer> list= Arrays.asList(2,3,4);
+        List<Integer> list= Arrays.asList(2,2,3);
         List<ProductCategory> result= repository.findByCategoryTypeIn(list);
         Assert.assertNotEquals(0,result.size());
     }

@@ -13,7 +13,7 @@ public class ResultVOUtil {
      * @param object data数据
      * @return
      */
-    public static ResultVO<Object> success(Object object){
+    public static ResultVO success(Object object){
         ResultVO<Object> resultVO=new ResultVO<>();
         resultVO.setData(object);
         resultVO.setCode(0);

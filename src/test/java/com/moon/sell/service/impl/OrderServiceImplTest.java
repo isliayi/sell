@@ -3,6 +3,8 @@ package com.moon.sell.service.impl;
 import com.moon.sell.dataobject.OrderDetail;
 import com.moon.sell.dataobject.OrderMaster;
 import com.moon.sell.dto.OrderDTO;
+import com.moon.sell.enums.OrderStatusEnum;
+import com.moon.sell.enums.PayStatusEnum;
 import com.moon.sell.repository.OrderMasterRepository;
 import com.moon.sell.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -60,22 +64,42 @@ public class OrderServiceImplTest {
     @Test
     public void findOne() {
         OrderDTO orderDTO=orderService.findOne(orderid);
+        log.info("查询单个订单result={}",orderDTO);
         Assert.assertNotNull(orderDTO);
     }
 
     @Test
     public void findList() {
+        PageRequest request=PageRequest.of(0,2);
+        Page<OrderDTO>  orderDTOPage=orderService.findList(buyerOpenid,request);
+        Assert.assertNotEquals(0,orderDTOPage.getTotalElements());
     }
 
     @Test
     public void cancel() {
+        OrderDTO orderDTO=orderService.findOne(orderid);
+        OrderDTO result=orderService.cancel(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(),result.getOrderStatus());
     }
 
     @Test
     public void finish() {
+        OrderDTO orderDTO=orderService.findOne("1546485927257356450");
+        OrderDTO result=orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHWED.getCode(),result.getOrderStatus());
     }
 
     @Test
     public void paid() {
+        OrderDTO orderDTO=orderService.findOne("1546485927257356450");
+        OrderDTO result=orderService.paid(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),result.getPayStatus());
+    }
+
+    @Test
+    public void List() {
+        PageRequest request=PageRequest.of(0,2);
+        Page<OrderDTO>  orderDTOPage=orderService.findList(request);
+        Assert.assertTrue("查询所有订单",orderDTOPage.getTotalElements()>0);
     }
 }

@@ -4,9 +4,20 @@ spring:
     username: root
     password: moon
     url: jdbc:mysql:///weixin_shop?characterEncoding=utf-8&useSSL=false
-  jpa:
-    show-sql: true
+  jackson:
+    default-property-inclusion: non_null
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: moon
 
+#  devtools:
+#    remote:
+#      restart:
+#        enabled: true
 server:
   servlet:
     context-path: /sell
+
+
+
